@@ -1,0 +1,27 @@
+# Generated state, caches, dependencies and local secrets
+.DS_Store
+Thumbs.db
+**/.state/
+**/.work/
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.venv/
+**/venv/
+**/node_modules/
+**/build/
+**/dist/
+**/*.egg-info/
+**/coverage/
+**/.coverage
+**/.env
+**/.env.*
+**/private/
+**/local-config.json
+**/*.sqlite
+**/*.sqlite-shm
+**/*.sqlite-wal
+**/*.pem
+**/*.key
+**/credentials*
+**/*.log

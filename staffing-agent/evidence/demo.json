@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-22T23:10:00.991Z",
+  "generatedAt": "2026-10-23T01:02:10.594Z",
   "title": "Staffing Workbench",
   "plannerStatus": "deterministic reference planner verified; not a live LLM",
   "modelValidation": "Optional local-model evidence, if run, is in live-model.json. Learned embedding quality is not validated.",
@@ -446,7 +446,7 @@
     "hardFilterViolations": 0
   },
   "unitTests": {
-    "passed": 18,
+    "passed": 20,
     "failed": 0,
     "runtime": "v24.19.0",
     "actualChildProcessCrashTest": true
@@ -553,7 +553,7 @@
   ],
   "moduleProvenance": {
     "file": "src/search.ts",
-    "sha256": "428880aac1d546bd643757dac3ed644c7fc9c1cec363cab2cce462d130307502"
+    "sha256": "20c4aa37b9d7672fb9f2d053c7a40fdeb1f423b4691327f292b98dd7986c1e7a"
   },
   "limitations": [
     "Fictional profiles only; no real candidates, PHI, contact data or outreach.",

@@ -1,0 +1,114 @@
+[
+  {
+    "id": "demo-rn-101",
+    "tenantId": "hospital-demo-a",
+    "role": "RN",
+    "state": "CA",
+    "shifts": [
+      "night"
+    ],
+    "skills": [
+      "ICU",
+      "ventilator",
+      "ACLS"
+    ],
+    "summary": "Fictional critical care profile with ICU ventilator competency and ACLS certification.",
+    "availableForReview": true
+  },
+  {
+    "id": "demo-rn-102",
+    "tenantId": "hospital-demo-a",
+    "role": "RN",
+    "state": "CA",
+    "shifts": [
+      "day",
+      "night"
+    ],
+    "skills": [
+      "emergency",
+      "triage",
+      "ACLS"
+    ],
+    "summary": "Fictional emergency department profile with triage and ACLS competency.",
+    "availableForReview": true
+  },
+  {
+    "id": "demo-rn-103",
+    "tenantId": "hospital-demo-a",
+    "role": "RN",
+    "state": "CA",
+    "shifts": [
+      "day"
+    ],
+    "skills": [
+      "ICU",
+      "ventilator",
+      "ACLS"
+    ],
+    "summary": "Fictional day shift critical care profile with ICU ventilator competency.",
+    "availableForReview": true
+  },
+  {
+    "id": "demo-rn-104",
+    "tenantId": "hospital-demo-a",
+    "role": "RN",
+    "state": "TX",
+    "shifts": [
+      "night"
+    ],
+    "skills": [
+      "ICU",
+      "ventilator",
+      "ACLS"
+    ],
+    "summary": "Fictional Texas critical care profile with ICU ventilator competency.",
+    "availableForReview": true
+  },
+  {
+    "id": "demo-rn-105",
+    "tenantId": "hospital-demo-a",
+    "role": "RN",
+    "state": "CA",
+    "shifts": [
+      "night"
+    ],
+    "skills": [
+      "pediatric",
+      "BLS"
+    ],
+    "summary": "Fictional pediatric ward profile with BLS competency.",
+    "availableForReview": true
+  },
+  {
+    "id": "demo-rt-106",
+    "tenantId": "hospital-demo-a",
+    "role": "RT",
+    "state": "CA",
+    "shifts": [
+      "night"
+    ],
+    "skills": [
+      "ventilator",
+      "respiratory",
+      "BLS"
+    ],
+    "summary": "Fictional respiratory therapy profile with ventilator competency.",
+    "availableForReview": true
+  },
+  {
+    "id": "demo-rn-201",
+    "tenantId": "hospital-demo-b",
+    "role": "RN",
+    "state": "CA",
+    "shifts": [
+      "night"
+    ],
+    "skills": [
+      "ICU",
+      "ventilator",
+      "ACLS"
+    ],
+    "summary": "Fictional second-tenant critical care profile. Never eligible for tenant A retrieval.",
+    "availableForReview": true
+  }
+]

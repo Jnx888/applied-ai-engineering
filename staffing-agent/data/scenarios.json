@@ -1,0 +1,10 @@
+[
+  {"id":"critical-care-night","request":{"tenantId":"hospital-demo-a","role":"RN","state":"CA","shift":"night","query":"ICU ventilator ACLS","minScore":0.3},"relevantIds":["demo-rn-101"],"expectedAbstention":false},
+  {"id":"emergency-night","request":{"tenantId":"hospital-demo-a","role":"RN","state":"CA","shift":"night","query":"emergency triage","minScore":0.3},"relevantIds":["demo-rn-102"],"expectedAbstention":false},
+  {"id":"pediatric-night","request":{"tenantId":"hospital-demo-a","role":"RN","state":"CA","shift":"night","query":"pediatric BLS","minScore":0.3},"relevantIds":["demo-rn-105"],"expectedAbstention":false},
+  {"id":"respiratory-night","request":{"tenantId":"hospital-demo-a","role":"RT","state":"CA","shift":"night","query":"respiratory ventilator","minScore":0.3},"relevantIds":["demo-rt-106"],"expectedAbstention":false},
+  {"id":"no-geographic-match","request":{"tenantId":"hospital-demo-a","role":"RN","state":"NY","shift":"night","query":"ICU","minScore":0.3},"relevantIds":[],"expectedAbstention":true},
+  {"id":"no-evidence-match","request":{"tenantId":"hospital-demo-a","role":"RN","state":"CA","shift":"night","query":"oncology chemotherapy","minScore":0.3},"relevantIds":[],"expectedAbstention":true},
+  {"id":"tenant-b-scope","request":{"tenantId":"hospital-demo-b","role":"RN","state":"CA","shift":"night","query":"ICU ventilator","minScore":0.3},"relevantIds":["demo-rn-201"],"expectedAbstention":false},
+  {"id":"unknown-tenant","request":{"tenantId":"hospital-demo-c","role":"RN","state":"CA","shift":"night","query":"ICU","minScore":0.3},"relevantIds":[],"expectedAbstention":true}
+]

@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "project": "Object Evidence",
+  "generated_at": "2026-10-22T23:13:52.943473+00:00",
+  "dataset_id": "aster-archive-fixture-v1",
+  "dataset_sha256": "26982965278cc6a3a96b95d32d2430bca8e6bffa340000ad83b04046ed19e2d4",
+  "scope": "Handwritten synthetic fixtures; no user research, production telemetry, or employer data.",
+  "model_calls": 0,
+  "cloud_calls": 0,
+  "initial_generation": "f1fc17d66b8569e1548ae26ab20c011ea01819b015c3db04e733e3483dc5508a",
+  "retrieval_cases": [
+    {
+      "id": "restore-integrity",
+      "expected_key": "runbooks/restore.md",
+      "retrieved_keys": [
+        "runbooks/restore.md",
+        "runbooks/retention.md"
+      ],
+      "passed": true,
+      "rank": 1,
+      "abstained": false
+    },
+    {
+      "id": "retention-window",
+      "expected_key": "runbooks/retention.md",
+      "retrieved_keys": [
+        "runbooks/retention.md"
+      ],
+      "passed": true,
+      "rank": 1,
+      "abstained": false
+    },
+    {
+      "id": "deleted-documents",
+      "expected_key": "runbooks/retention.md",
+      "retrieved_keys": [
+        "runbooks/retention.md",
+        "runbooks/restore.md",
+        "runbooks/untrusted.md"
+      ],
+      "passed": true,
+      "rank": 1,
+      "abstained": false
+    },
+    {
+      "id": "least-privilege",
+      "expected_key": "runbooks/access.md",
+      "retrieved_keys": [
+        "runbooks/access.md",
+        "runbooks/retention.md",
+        "runbooks/restore.md"
+      ],
+      "passed": true,
+      "rank": 1,
+      "abstained": false
+    },
+    {
+      "id": "network-failure",
+      "expected_key": "runbooks/retry.md",
+      "retrieved_keys": [
+        "runbooks/retry.md"
+      ],
+      "passed": true,
+      "rank": 1,
+      "abstained": false
+    },
+    {
+      "id": "context-contract",
+      "expected_key": "runbooks/context.md",
+      "retrieved_keys": [
+        "runbooks/context.md",
+        "runbooks/access.md",
+        "runbooks/retry.md"
+      ],
+      "passed": true,
+      "rank": 1,
+      "abstained": false
+    },
+    {
+      "id": "no-evidence",
+      "expected_key": null,
+      "retrieved_keys": [],
+      "passed": true,
+      "rank": null,
+      "abstained": true
+    },
+    {
+      "id": "instruction-remains-data",
+      "expected_key": "runbooks/untrusted.md",
+      "retrieved_keys": [
+        "runbooks/untrusted.md",
+        "runbooks/retention.md",
+        "runbooks/context.md"
+      ],
+      "passed": true,
+      "rank": 1,
+      "abstained": false
+    }
+  ],
+  "retrieval_passed": 8,
+  "retrieval_total": 8,
+  "hit_at_3": 1.0,
+  "mrr_at_3": 1.0,
+  "reliability_checks": {
+    "unchanged_sync_zero_downloads": true,
+    "atomic_snapshot_preserved_on_corruption": true,
+    "corrupt_input_rejected": true,
+    "failed_sync_blocks_default_query": true,
+    "explicit_stale_read_labeled": true,
+    "deleted_document_not_retrievable": true,
+    "tombstone_records_deletion_without_text": true
+  },
+  "reliability_passed": 7,
+  "reliability_total": 7,
+  "scenarios": [
+    {
+      "id": "initial",
+      "label": "Build a cited index",
+      "outcome": "ready",
+      "trace": [
+        "List the complete fixture scope",
+        "Validate byte and object budgets",
+        "Hash and index UTF-8 documents",
+        "Atomically publish the snapshot"
+      ],
+      "metrics": {
+        "objects": 6,
+        "downloaded": 6,
+        "downloaded_bytes": 3576
+      },
+      "generation": "f1fc17d66b8569e1548ae26ab20c011ea01819b015c3db04e733e3483dc5508a"
+    },
+    {
+      "id": "unchanged",
+      "label": "Reuse unchanged objects",
+      "outcome": "ready",
+      "trace": [
+        "Compare source revisions with the current manifest",
+        "Reuse validated content",
+        "Retain identical snapshot generation"
+      ],
+      "metrics": {
+        "reused": 6,
+        "downloaded": 0,
+        "downloaded_bytes": 0
+      },
+      "generation": "f1fc17d66b8569e1548ae26ab20c011ea01819b015c3db04e733e3483dc5508a"
+    },
+    {
+      "id": "corrupt",
+      "label": "Preserve evidence on failed sync",
+      "outcome": "rejected_safely",
+      "trace": [
+        "Encounter invalid UTF-8 in a newly added fixture",
+        "Reject the entire candidate snapshot",
+        "Mark the attempt failed",
+        "Reject ordinary queries; allow explicit labeled stale inspection"
+      ],
+      "error": "invalid_utf8_object",
+      "query_error": "index_stale_after_failed_sync",
+      "metrics": {
+        "snapshot_preserved": true,
+        "stale_read_labeled": true
+      },
+      "generation": "f1fc17d66b8569e1548ae26ab20c011ea01819b015c3db04e733e3483dc5508a"
+    },
+    {
+      "id": "deleted",
+      "label": "Remove deleted source evidence",
+      "outcome": "ready",
+      "trace": [
+        "Remove the retention fixture from the source",
+        "Complete a successful authoritative listing",
+        "Remove deleted text from the active index",
+        "Keep a key/hash tombstone for provenance"
+      ],
+      "metrics": {
+        "deleted": 1,
+        "objects": 5,
+        "deleted_text_retrievable": false
+      },
+      "generation": "d5ec5b5a90fc540e4de0def351c8a6e7a3439d37ec2e4068f446215af3e4370a"
+    }
+  ],
+  "limitations": [
+    "Handwritten in-sample retrieval set, not a generalization benchmark",
+    "No model faithfulness, live cloud, multi-tenant authorization or production performance evaluation"
+  ],
+  "passed": true
+}

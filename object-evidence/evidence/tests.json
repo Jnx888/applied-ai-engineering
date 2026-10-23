@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-22T23:13:19.029977+00:00",
+  "command": "python -m unittest discover -s tests -v",
+  "runtime": "Python 3.12.14",
+  "discovered": 63,
+  "passed": 60,
+  "failed": 0,
+  "errors": 0,
+  "skipped": [
+    {
+      "test": "test_engine.IndexTests.test_fifo_rejected_without_opening",
+      "reason": "POSIX FIFO behavior requires POSIX"
+    },
+    {
+      "test": "test_engine.IndexTests.test_real_langchain_document_bridge_when_installed",
+      "reason": "optional langchain-core is not installed"
+    },
+    {
+      "test": "test_engine.IndexTests.test_symlink_rejected_when_available",
+      "reason": "symlink creation unavailable on this host"
+    }
+  ],
+  "elapsed_ms": 1204,
+  "successful": true,
+  "scope": "Offline tests, fake B2 client and fake local-model responses; no real provider requests"
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "project": "Object Evidence",
+  "generated_at": "2026-10-22T23:08:08.207507+00:00",
+  "data_classification": "fictional_public_safe_fixtures",
+  "provider": "Ollama on fixed loopback",
+  "model": "qwen3:4b-instruct",
+  "cases": [
+    {
+      "query": "How do we verify a restore digest?",
+      "passed": true,
+      "result": {
+        "schema_version": 1,
+        "mode": "local_model_exact_quote",
+        "model": "qwen3:4b-instruct",
+        "model_calls": 1,
+        "generation": "f1fc17d66b8569e1548ae26ab20c011ea01819b015c3db04e733e3483dc5508a",
+        "elapsed_ms": 7750,
+        "supported": true,
+        "abstained": false,
+        "evidence": {
+          "citation_id": "oe_4c0a293ec429dee61ef2ce95",
+          "quote": "If the downloaded digest differs, stop the restore and investigate the source version; never replace the expected digest with the observed value.",
+          "key": "runbooks/restore.md",
+          "sha256": "c1eac712797a0e8ebb44fdf8cfd41c0450daeaa647422f169d4db9157215b9c1",
+          "start_line": 1,
+          "end_line": 8
+        },
+        "validation": "citation_allowlist_and_exact_source_substring",
+        "limits": [
+          "Quote membership is verified; answer relevance is not guaranteed",
+          "No generated factual prose is displayed",
+          "Local fixture check is not a model benchmark"
+        ],
+        "client_external_calls": 0,
+        "execution_boundary": "fixed_loopback_ollama_operator_must_verify_model_runs_locally"
+      },
+      "saved_quote_revalidated": true
+    },
+    {
+      "query": "How many days are diagnostic exports kept?",
+      "passed": true,
+      "result": {
+        "schema_version": 1,
+        "mode": "local_model_exact_quote",
+        "model": "qwen3:4b-instruct",
+        "model_calls": 1,
+        "generation": "f1fc17d66b8569e1548ae26ab20c011ea01819b015c3db04e733e3483dc5508a",
+        "elapsed_ms": 766,
+        "supported": true,
+        "abstained": false,
+        "evidence": {
+          "citation_id": "oe_ebf0c0e8083c6b1b0d8e59ff",
+          "quote": "The sample retention policy keeps diagnostic exports for 14 days.",
+          "key": "runbooks/retention.md",
+          "sha256": "05a991ee8bb4a58162ffe3be9e5b301afe5293fc1abe785cfba55f30875e6d50",
+          "start_line": 1,
+          "end_line": 8
+        },
+        "validation": "citation_allowlist_and_exact_source_substring",
+        "limits": [
+          "Quote membership is verified; answer relevance is not guaranteed",
+          "No generated factual prose is displayed",
+          "Local fixture check is not a model benchmark"
+        ],
+        "client_external_calls": 0,
+        "execution_boundary": "fixed_loopback_ollama_operator_must_verify_model_runs_locally"
+      },
+      "saved_quote_revalidated": true
+    }
+  ],
+  "limitations": [
+    "Two local fixture checks; not a production benchmark",
+    "Exact citation and quote membership validated, not broad semantic correctness",
+    "No B2 service or credentials used"
+  ],
+  "passed": 2,
+  "total": 2,
+  "client_external_calls": 0,
+  "model_calls": 2,
+  "execution_boundary": "Fixed loopback Ollama; existing qwen3:4b-instruct model selected. Client request scope does not independently attest service network activity.",
+  "saved_quote_revalidation_at": "2026-10-22T23:13:52.974370+00:00",
+  "saved_quote_revalidation_note": "Revalidated recorded quotations against unchanged fixture generation after validator hardening. No additional model calls; original timestamps and observed elapsed times retained."
+}

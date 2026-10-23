@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-22T23:13:20.842072+00:00",
+  "method": "Local wheel build with existing setuptools; extracted to isolated temporary directory; no package installation",
+  "fixture_files_in_wheel": 7,
+  "commands": [
+    {
+      "command": "demo",
+      "exit_code": 0,
+      "valid_report": true,
+      "model_calls": 0,
+      "cloud_calls": 0
+    },
+    {
+      "command": "evaluate",
+      "exit_code": 0,
+      "valid_report": true,
+      "model_calls": 0,
+      "cloud_calls": 0
+    }
+  ],
+  "passed": true
+}

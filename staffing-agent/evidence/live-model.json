@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-22T23:05:36.444Z",
+  "model": "qwen3:4b-instruct",
+  "endpoint": "loopback Ollama",
+  "modelExecution": "actual local structured-output calls; fictional inputs only",
+  "embeddingExecution": "not run; chat model embedding capability not assumed",
+  "promptPolicy": "Return one unchanged search_profiles proposal; server validates tool name, exact argument keys and unchanged approved scope.",
+  "results": [
+    {
+      "scenario": "critical-care-night",
+      "status": "awaiting_approval",
+      "passed": true,
+      "elapsedMs": 7117,
+      "validatedProposal": {
+        "arguments": {
+          "query": "ICU ventilator ACLS",
+          "role": "RN",
+          "shift": "night",
+          "state": "CA"
+        },
+        "name": "search_profiles"
+      },
+      "resultCount": 2,
+      "outboxCount": 0,
+      "trace": [
+        {
+          "kind": "queued",
+          "detail": {}
+        },
+        {
+          "kind": "claimed",
+          "detail": {
+            "attempt": 1
+          }
+        },
+        {
+          "kind": "search_completed",
+          "detail": {
+            "count": 2,
+            "planner": "ollama-local:qwen3:4b-instruct",
+            "retrieval": "BM25 + lexical term-frequency cosine + RRF; no learned embeddings"
+          }
+        },
+        {
+          "kind": "approval_required",
+          "detail": {}
+        }
+      ]
+    },
+    {
+      "scenario": "no-evidence-match",
+      "status": "abstained",
+      "passed": true,
+      "elapsedMs": 649,
+      "validatedProposal": {
+        "arguments": {
+          "query": "oncology chemotherapy",
+          "role": "RN",
+          "shift": "night",
+          "state": "CA"
+        },
+        "name": "search_profiles"
+      },
+      "resultCount": 0,
+      "outboxCount": 0,
+      "trace": [
+        {
+          "kind": "queued",
+          "detail": {}
+        },
+        {
+          "kind": "claimed",
+          "detail": {
+            "attempt": 1
+          }
+        },
+        {
+          "kind": "search_completed",
+          "detail": {
+            "count": 0,
+            "planner": "ollama-local:qwen3:4b-instruct",
+            "retrieval": "BM25 + lexical term-frequency cosine + RRF; no learned embeddings"
+          }
+        },
+        {
+          "kind": "abstained",
+          "detail": {}
+        }
+      ]
+    }
+  ],
+  "malformedGuard": {
+    "passed": true,
+    "source": "deterministic injected unknown-tool proposal, not a model-generated attack"
+  },
+  "limitations": [
+    "Two functional smoke cases, not model quality benchmarking.",
+    "No model downloads, external recruiting actions or learned embedding experiment.",
+    "Local endpoint alone is not proof of server configuration; operator must use installed local-only models."
+  ]
+}

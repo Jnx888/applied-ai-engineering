@@ -1,0 +1,567 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-22T23:10:00.991Z",
+  "title": "Staffing Workbench",
+  "plannerStatus": "deterministic reference planner verified; not a live LLM",
+  "modelValidation": "Optional local-model evidence, if run, is in live-model.json. Learned embedding quality is not validated.",
+  "fixtureScope": "8 curated synthetic smoke scenarios; not a representative hiring or production benchmark",
+  "profiles": [
+    {
+      "id": "demo-rn-101",
+      "tenantId": "hospital-demo-a",
+      "role": "RN",
+      "state": "CA",
+      "shifts": [
+        "night"
+      ],
+      "skills": [
+        "ICU",
+        "ventilator",
+        "ACLS"
+      ],
+      "summary": "Fictional critical care profile with ICU ventilator competency and ACLS certification.",
+      "availableForReview": true
+    },
+    {
+      "id": "demo-rn-102",
+      "tenantId": "hospital-demo-a",
+      "role": "RN",
+      "state": "CA",
+      "shifts": [
+        "day",
+        "night"
+      ],
+      "skills": [
+        "emergency",
+        "triage",
+        "ACLS"
+      ],
+      "summary": "Fictional emergency department profile with triage and ACLS competency.",
+      "availableForReview": true
+    },
+    {
+      "id": "demo-rn-103",
+      "tenantId": "hospital-demo-a",
+      "role": "RN",
+      "state": "CA",
+      "shifts": [
+        "day"
+      ],
+      "skills": [
+        "ICU",
+        "ventilator",
+        "ACLS"
+      ],
+      "summary": "Fictional day shift critical care profile with ICU ventilator competency.",
+      "availableForReview": true
+    },
+    {
+      "id": "demo-rn-104",
+      "tenantId": "hospital-demo-a",
+      "role": "RN",
+      "state": "TX",
+      "shifts": [
+        "night"
+      ],
+      "skills": [
+        "ICU",
+        "ventilator",
+        "ACLS"
+      ],
+      "summary": "Fictional Texas critical care profile with ICU ventilator competency.",
+      "availableForReview": true
+    },
+    {
+      "id": "demo-rn-105",
+      "tenantId": "hospital-demo-a",
+      "role": "RN",
+      "state": "CA",
+      "shifts": [
+        "night"
+      ],
+      "skills": [
+        "pediatric",
+        "BLS"
+      ],
+      "summary": "Fictional pediatric ward profile with BLS competency.",
+      "availableForReview": true
+    },
+    {
+      "id": "demo-rt-106",
+      "tenantId": "hospital-demo-a",
+      "role": "RT",
+      "state": "CA",
+      "shifts": [
+        "night"
+      ],
+      "skills": [
+        "ventilator",
+        "respiratory",
+        "BLS"
+      ],
+      "summary": "Fictional respiratory therapy profile with ventilator competency.",
+      "availableForReview": true
+    },
+    {
+      "id": "demo-rn-201",
+      "tenantId": "hospital-demo-b",
+      "role": "RN",
+      "state": "CA",
+      "shifts": [
+        "night"
+      ],
+      "skills": [
+        "ICU",
+        "ventilator",
+        "ACLS"
+      ],
+      "summary": "Fictional second-tenant critical care profile. Never eligible for tenant A retrieval.",
+      "availableForReview": true
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "critical-care-night",
+      "request": {
+        "tenantId": "hospital-demo-a",
+        "role": "RN",
+        "state": "CA",
+        "shift": "night",
+        "query": "ICU ventilator ACLS",
+        "minScore": 0.3
+      },
+      "relevantIds": [
+        "demo-rn-101"
+      ],
+      "expectedAbstention": false,
+      "result": {
+        "results": [
+          {
+            "profileId": "demo-rn-101",
+            "score": 0.03279,
+            "citations": [
+              "demo-rn-101: role=RN; state=CA; shift=night",
+              "demo-rn-101: skills=ICU, ventilator, ACLS"
+            ],
+            "rankingFeatures": {
+              "bm25": 3.16548,
+              "lexicalCosine": 0.7746,
+              "coverage": 1,
+              "rrf": 0.03279
+            }
+          },
+          {
+            "profileId": "demo-rn-102",
+            "score": 0.03226,
+            "citations": [
+              "demo-rn-102: role=RN; state=CA; shift=night",
+              "demo-rn-102: skills=emergency, triage, ACLS"
+            ],
+            "rankingFeatures": {
+              "bm25": 0.6411,
+              "lexicalCosine": 0.27217,
+              "coverage": 0.33333,
+              "rrf": 0.03226
+            }
+          }
+        ],
+        "abstained": false,
+        "audit": {
+          "scope": "hospital-demo-a",
+          "eligibleCount": 3,
+          "mode": "BM25 + lexical term-frequency cosine + RRF; no learned embeddings",
+          "reason": "review_required"
+        }
+      },
+      "hybridReciprocalRank": 1,
+      "bm25ReciprocalRank": 1,
+      "hardFilterViolations": 0,
+      "passed": true
+    },
+    {
+      "id": "emergency-night",
+      "request": {
+        "tenantId": "hospital-demo-a",
+        "role": "RN",
+        "state": "CA",
+        "shift": "night",
+        "query": "emergency triage",
+        "minScore": 0.3
+      },
+      "relevantIds": [
+        "demo-rn-102"
+      ],
+      "expectedAbstention": false,
+      "result": {
+        "results": [
+          {
+            "profileId": "demo-rn-102",
+            "score": 0.03279,
+            "citations": [
+              "demo-rn-102: role=RN; state=CA; shift=night",
+              "demo-rn-102: skills=emergency, triage, ACLS"
+            ],
+            "rankingFeatures": {
+              "bm25": 2.67578,
+              "lexicalCosine": 0.66667,
+              "coverage": 1,
+              "rrf": 0.03279
+            }
+          }
+        ],
+        "abstained": false,
+        "audit": {
+          "scope": "hospital-demo-a",
+          "eligibleCount": 3,
+          "mode": "BM25 + lexical term-frequency cosine + RRF; no learned embeddings",
+          "reason": "review_required"
+        }
+      },
+      "hybridReciprocalRank": 1,
+      "bm25ReciprocalRank": 1,
+      "hardFilterViolations": 0,
+      "passed": true
+    },
+    {
+      "id": "pediatric-night",
+      "request": {
+        "tenantId": "hospital-demo-a",
+        "role": "RN",
+        "state": "CA",
+        "shift": "night",
+        "query": "pediatric BLS",
+        "minScore": 0.3
+      },
+      "relevantIds": [
+        "demo-rn-105"
+      ],
+      "expectedAbstention": false,
+      "result": {
+        "results": [
+          {
+            "profileId": "demo-rn-105",
+            "score": 0.03279,
+            "citations": [
+              "demo-rn-105: role=RN; state=CA; shift=night",
+              "demo-rn-105: skills=pediatric, BLS"
+            ],
+            "rankingFeatures": {
+              "bm25": 2.88259,
+              "lexicalCosine": 0.78446,
+              "coverage": 1,
+              "rrf": 0.03279
+            }
+          }
+        ],
+        "abstained": false,
+        "audit": {
+          "scope": "hospital-demo-a",
+          "eligibleCount": 3,
+          "mode": "BM25 + lexical term-frequency cosine + RRF; no learned embeddings",
+          "reason": "review_required"
+        }
+      },
+      "hybridReciprocalRank": 1,
+      "bm25ReciprocalRank": 1,
+      "hardFilterViolations": 0,
+      "passed": true
+    },
+    {
+      "id": "respiratory-night",
+      "request": {
+        "tenantId": "hospital-demo-a",
+        "role": "RT",
+        "state": "CA",
+        "shift": "night",
+        "query": "respiratory ventilator",
+        "minScore": 0.3
+      },
+      "relevantIds": [
+        "demo-rt-106"
+      ],
+      "expectedAbstention": false,
+      "result": {
+        "results": [
+          {
+            "profileId": "demo-rt-106",
+            "score": 0.03279,
+            "citations": [
+              "demo-rt-106: role=RT; state=CA; shift=night",
+              "demo-rt-106: skills=ventilator, respiratory, BLS"
+            ],
+            "rankingFeatures": {
+              "bm25": 0.79113,
+              "lexicalCosine": 0.75593,
+              "coverage": 1,
+              "rrf": 0.03279
+            }
+          }
+        ],
+        "abstained": false,
+        "audit": {
+          "scope": "hospital-demo-a",
+          "eligibleCount": 1,
+          "mode": "BM25 + lexical term-frequency cosine + RRF; no learned embeddings",
+          "reason": "review_required"
+        }
+      },
+      "hybridReciprocalRank": 1,
+      "bm25ReciprocalRank": 1,
+      "hardFilterViolations": 0,
+      "passed": true
+    },
+    {
+      "id": "no-geographic-match",
+      "request": {
+        "tenantId": "hospital-demo-a",
+        "role": "RN",
+        "state": "NY",
+        "shift": "night",
+        "query": "ICU",
+        "minScore": 0.3
+      },
+      "relevantIds": [],
+      "expectedAbstention": true,
+      "result": {
+        "results": [],
+        "abstained": true,
+        "audit": {
+          "scope": "hospital-demo-a",
+          "eligibleCount": 0,
+          "mode": "BM25 + lexical term-frequency cosine + RRF; no learned embeddings",
+          "reason": "no_eligible_profiles"
+        }
+      },
+      "hybridReciprocalRank": 0,
+      "bm25ReciprocalRank": 0,
+      "hardFilterViolations": 0,
+      "passed": true
+    },
+    {
+      "id": "no-evidence-match",
+      "request": {
+        "tenantId": "hospital-demo-a",
+        "role": "RN",
+        "state": "CA",
+        "shift": "night",
+        "query": "oncology chemotherapy",
+        "minScore": 0.3
+      },
+      "relevantIds": [],
+      "expectedAbstention": true,
+      "result": {
+        "results": [],
+        "abstained": true,
+        "audit": {
+          "scope": "hospital-demo-a",
+          "eligibleCount": 3,
+          "mode": "BM25 + lexical term-frequency cosine + RRF; no learned embeddings",
+          "reason": "insufficient_query_evidence"
+        }
+      },
+      "hybridReciprocalRank": 0,
+      "bm25ReciprocalRank": 0,
+      "hardFilterViolations": 0,
+      "passed": true
+    },
+    {
+      "id": "tenant-b-scope",
+      "request": {
+        "tenantId": "hospital-demo-b",
+        "role": "RN",
+        "state": "CA",
+        "shift": "night",
+        "query": "ICU ventilator",
+        "minScore": 0.3
+      },
+      "relevantIds": [
+        "demo-rn-201"
+      ],
+      "expectedAbstention": false,
+      "result": {
+        "results": [
+          {
+            "profileId": "demo-rn-201",
+            "score": 0.03279,
+            "citations": [
+              "demo-rn-201: role=RN; state=CA; shift=night",
+              "demo-rn-201: skills=ICU, ventilator, ACLS"
+            ],
+            "rankingFeatures": {
+              "bm25": 0.57536,
+              "lexicalCosine": 0.343,
+              "coverage": 1,
+              "rrf": 0.03279
+            }
+          }
+        ],
+        "abstained": false,
+        "audit": {
+          "scope": "hospital-demo-b",
+          "eligibleCount": 1,
+          "mode": "BM25 + lexical term-frequency cosine + RRF; no learned embeddings",
+          "reason": "review_required"
+        }
+      },
+      "hybridReciprocalRank": 1,
+      "bm25ReciprocalRank": 1,
+      "hardFilterViolations": 0,
+      "passed": true
+    },
+    {
+      "id": "unknown-tenant",
+      "request": {
+        "tenantId": "hospital-demo-c",
+        "role": "RN",
+        "state": "CA",
+        "shift": "night",
+        "query": "ICU",
+        "minScore": 0.3
+      },
+      "relevantIds": [],
+      "expectedAbstention": true,
+      "result": {
+        "results": [],
+        "abstained": true,
+        "audit": {
+          "scope": "hospital-demo-c",
+          "eligibleCount": 0,
+          "mode": "BM25 + lexical term-frequency cosine + RRF; no learned embeddings",
+          "reason": "no_eligible_profiles"
+        }
+      },
+      "hybridReciprocalRank": 0,
+      "bm25ReciprocalRank": 0,
+      "hardFilterViolations": 0,
+      "passed": true
+    }
+  ],
+  "metrics": {
+    "scenarios": 8,
+    "passed": 8,
+    "answerableQueries": 5,
+    "hybridMRR": 1,
+    "bm25MRR": 1,
+    "abstentionAccuracy": 1,
+    "hardFilterViolations": 0
+  },
+  "unitTests": {
+    "passed": 18,
+    "failed": 0,
+    "runtime": "v24.19.0",
+    "actualChildProcessCrashTest": true
+  },
+  "durableRuns": [
+    {
+      "id": "process-crash-restart",
+      "storage": "SQLite WAL",
+      "observedProcessExitCode": 17,
+      "afterCrash": "running",
+      "afterRecovery": "awaiting_approval",
+      "afterApproval": "completed",
+      "outboxBeforeApproval": 0,
+      "outboxAfterDuplicateApproval": 1,
+      "trace": [
+        {
+          "tMs": 0,
+          "kind": "queued",
+          "detail": {}
+        },
+        {
+          "tMs": 0,
+          "kind": "claimed",
+          "detail": {
+            "attempt": 1
+          }
+        },
+        {
+          "tMs": 101,
+          "kind": "lease_recovered",
+          "detail": {
+            "attempt": 2
+          }
+        },
+        {
+          "tMs": 101,
+          "kind": "search_completed",
+          "detail": {
+            "count": 2,
+            "planner": "deterministic-reference-planner (not an LLM)",
+            "retrieval": "BM25 + lexical term-frequency cosine + RRF; no learned embeddings"
+          }
+        },
+        {
+          "tMs": 101,
+          "kind": "approval_required",
+          "detail": {}
+        },
+        {
+          "tMs": 102,
+          "kind": "approved_simulated_outbox",
+          "detail": {}
+        }
+      ]
+    },
+    {
+      "id": "transient-failure-retry",
+      "status": "awaiting_approval",
+      "attempts": 2,
+      "trace": [
+        {
+          "tMs": 0,
+          "kind": "queued",
+          "detail": {}
+        },
+        {
+          "tMs": 0,
+          "kind": "claimed",
+          "detail": {
+            "attempt": 1
+          }
+        },
+        {
+          "tMs": 0,
+          "kind": "retry_scheduled",
+          "detail": {
+            "code": "dependency_unavailable",
+            "backoffMs": 1000
+          }
+        },
+        {
+          "tMs": 1000,
+          "kind": "claimed",
+          "detail": {
+            "attempt": 2
+          }
+        },
+        {
+          "tMs": 1000,
+          "kind": "search_completed",
+          "detail": {
+            "count": 2,
+            "planner": "deterministic-reference-planner (not an LLM)",
+            "retrieval": "BM25 + lexical term-frequency cosine + RRF; no learned embeddings"
+          }
+        },
+        {
+          "tMs": 1000,
+          "kind": "approval_required",
+          "detail": {}
+        }
+      ]
+    }
+  ],
+  "moduleProvenance": {
+    "file": "src/search.ts",
+    "sha256": "428880aac1d546bd643757dac3ed644c7fc9c1cec363cab2cce462d130307502"
+  },
+  "limitations": [
+    "Fictional profiles only; no real candidates, PHI, contact data or outreach.",
+    "Browser tenant selector is an educational simulation, not authentication.",
+    "Trusted backend Principal boundary needs real identity-provider integration before deployment.",
+    "SQLite single-host reference is not a distributed-scale or availability claim.",
+    "BM25 and hybrid tie on this small fixture; no measured ranking uplift.",
+    "A simulated internal outbox is not an external mail delivery system.",
+    "Model and embedding results do not make hiring decisions; human review is required."
+  ]
+}

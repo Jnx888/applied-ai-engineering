@@ -1,0 +1,14 @@
+{
+  "name": "staffing-workbench-reference",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Tenant-scoped staffing search and approval workflow, with durable SQLite execution and measured synthetic evaluations.",
+  "engines": { "node": ">=24.19.0 <25" },
+  "scripts": {
+    "test": "node --test tests/*.test.ts",
+    "demo": "node scripts/demo.ts",
+    "eval": "node scripts/evaluate.ts",
+    "ollama": "node scripts/ollama-check.ts"
+  }
+}

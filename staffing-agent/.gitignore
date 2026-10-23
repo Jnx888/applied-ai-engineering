@@ -1,0 +1,8 @@
+.work/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.env
+.env.*
+node_modules/
+coverage/

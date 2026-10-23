@@ -1,0 +1,16 @@
+version: 2
+updates:
+  # These samples have no npm dependencies. Maintain the pinned CI actions only.
+  # Proposed updates require review; this configuration never merges or deploys.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: wednesday
+      time: '10:15'
+      timezone: America/Mexico_City
+    open-pull-requests-limit: 3
+    groups:
+      actions-minor-and-patch:
+        patterns: ['*']
+        update-types: [minor, patch]

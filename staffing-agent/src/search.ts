@@ -51,15 +51,34 @@ export function searchProfiles(profiles: Profile[], request: SearchRequest, rank
 }
 
 export type EmbeddingProvider = { model: string; embed: (texts: string[]) => Promise<number[][]> };
-function denseCosine(a: number[], b: number[]) { const aa = a.reduce((s, x) => s + x * x, 0), bb = b.reduce((s, x) => s + x * x, 0); return aa && bb ? a.reduce((s, x, i) => s + x * b[i], 0) / Math.sqrt(aa * bb) : 0; }
+function normalizedVector(value: unknown, dimensions: number): number[] {
+  if (!Array.isArray(value) || value.length !== dimensions) throw new Error('invalid_embeddings');
+  let scale = 0;
+  // Iteration also rejects sparse arrays. Scaling before squaring avoids overflow
+  // and underflow for finite provider values near either end of the float range.
+  for (const component of value) {
+    if (typeof component !== 'number' || !Number.isFinite(component)) throw new Error('invalid_embeddings');
+    scale = Math.max(scale, Math.abs(component));
+  }
+  if (!scale) throw new Error('invalid_embeddings');
+  const scaled = value.map(component => component / scale);
+  const norm = Math.sqrt(scaled.reduce((sum, component) => sum + component * component, 0));
+  return scaled.map(component => component / norm);
+}
+function denseCosine(a: number[], b: number[]) {
+  const score = a.reduce((sum, component, index) => sum + component * b[index], 0);
+  if (!Number.isFinite(score)) throw new Error('invalid_embeddings');
+  return Math.max(-1, Math.min(1, score));
+}
 /** Opt-in learned reranker. The conservative lexical evidence gate remains in effect. */
 export async function searchWithEmbeddings(profiles: Profile[], request: SearchRequest, provider: EmbeddingProvider): Promise<SearchResponse> {
   const baseline = searchProfiles(profiles, request);
   if (baseline.abstained) return baseline;
   const candidates = scopedProfiles(profiles, request).filter(p => baseline.results.some(h => h.profileId === p.id));
   const vectors = await provider.embed([request.query, ...candidates.map(p => [...p.skills, p.summary].join(' '))]);
-  if (vectors.length !== candidates.length + 1 || !vectors[0]?.length || vectors.some(v => v.length !== vectors[0].length || v.some(x => !Number.isFinite(x)))) throw new Error('invalid_embeddings');
-  const semantic = candidates.map((p, i) => ({ id: p.id, score: denseCosine(vectors[0], vectors[i + 1]) })).sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
+  if (!Array.isArray(vectors) || vectors.length !== candidates.length + 1 || !Array.isArray(vectors[0]) || !vectors[0].length) throw new Error('invalid_embeddings');
+  const normalized = vectors.map(vector => normalizedVector(vector, vectors[0].length));
+  const semantic = candidates.map((p, i) => ({ id: p.id, score: denseCosine(normalized[0], normalized[i + 1]) })).sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
   const results = baseline.results.map((h, index) => {
     const found = semantic.find(x => x.id === h.profileId)!;
     const rrf = 1 / (61 + index) + 1 / (61 + semantic.indexOf(found));

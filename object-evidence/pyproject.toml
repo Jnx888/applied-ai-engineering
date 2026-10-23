@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "object-evidence"
+version = "0.1.0"
+description = "Read-only object storage ingestion and reproducible retrieval with verifiable citations"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+dependencies = []
+
+[project.optional-dependencies]
+b2 = ["boto3>=1.35,<2"]
+langchain = ["langchain-core>=1,<2"]
+test = ["pytest>=8,<10"]
+
+[project.scripts]
+object-evidence = "object_evidence.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["object_evidence*"]
+
+[tool.setuptools.package-data]
+object_evidence = ["fixtures/*.json", "fixtures/docs/runbooks/*.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

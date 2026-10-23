@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "project": "Agent Capability Gateway",
+  "generated_at": "2026-10-23T00:58:30.754758+00:00",
+  "execution_mode": "real_python_sqlite_policy_checks_with_local_egress_simulator",
+  "data_scope": "fictional_operator_owned_fixtures",
+  "model_calls": 0,
+  "network_calls": 0,
+  "scenarios": [
+    {
+      "id": "read",
+      "label": "Read an explicitly scoped record",
+      "expected": "allowed",
+      "actual": "allowed",
+      "passed": true,
+      "decision": "allowed",
+      "outbox_effect_delta": 0,
+      "trace": [
+        "Use trusted operator and tenant",
+        "Check record against session scope",
+        "Verify single-use capability",
+        "Return fictional source data"
+      ],
+      "effect_kind": "record"
+    },
+    {
+      "id": "approval",
+      "label": "Require a separate approver for release",
+      "expected": "independent_approval_required",
+      "actual": "independent_approval_required",
+      "passed": true,
+      "decision": "denied",
+      "outbox_effect_delta": 0,
+      "trace": [
+        "Preview exact tool, payload digest and destination account",
+        "No independent approver provided",
+        "Deny capability issuance"
+      ],
+      "effect_kind": null
+    },
+    {
+      "id": "release",
+      "label": "Release the exact approved public artifact",
+      "expected": "allowed",
+      "actual": "allowed",
+      "passed": true,
+      "decision": "allowed",
+      "outbox_effect_delta": 1,
+      "trace": [
+        "Verify HMAC, expiry, identity and policy",
+        "Compare current action with approved digest",
+        "Consume nonce and create one local outbox row atomically"
+      ],
+      "effect_kind": "local_simulated_outbox"
+    },
+    {
+      "id": "replay",
+      "label": "Reject a replay of the same approval",
+      "expected": "capability_replayed",
+      "actual": "capability_replayed",
+      "passed": true,
+      "decision": "denied",
+      "outbox_effect_delta": 0,
+      "trace": [
+        "Receive the same signed envelope again",
+        "Observe consumed nonce",
+        "Keep outbox count unchanged"
+      ],
+      "effect_kind": null
+    },
+    {
+      "id": "account",
+      "label": "Block attacker account on an approved domain",
+      "expected": "destination_account_denied",
+      "actual": "destination_account_denied",
+      "passed": true,
+      "decision": "denied",
+      "outbox_effect_delta": 0,
+      "trace": [
+        "Hostname and path match approved service",
+        "Account differs from tenant-bound destination",
+        "Deny before issuing any capability"
+      ],
+      "effect_kind": null
+    },
+    {
+      "id": "tenant",
+      "label": "Reject another tenant's public-classified record",
+      "expected": "resource_scope_denied",
+      "actual": "resource_scope_denied",
+      "passed": true,
+      "decision": "denied",
+      "outbox_effect_delta": 0,
+      "trace": [
+        "Check authenticated tenant and task record scope",
+        "Record belongs to another tenant",
+        "Reject regardless of public classification"
+      ],
+      "effect_kind": null
+    },
+    {
+      "id": "provenance",
+      "label": "Keep restricted classification after encoding",
+      "expected": "restricted_data_flow",
+      "actual": "restricted_data_flow",
+      "passed": true,
+      "decision": "denied",
+      "outbox_effect_delta": 0,
+      "trace": [
+        "Read restricted fictional context",
+        "Prepare encoded text with gateway-owned inherited label",
+        "Deny restricted context at the public review sink"
+      ],
+      "effect_kind": null
+    },
+    {
+      "id": "payload",
+      "label": "Reject changed payload after preview",
+      "expected": "approved_action_changed",
+      "actual": "approved_action_changed",
+      "passed": true,
+      "decision": "denied",
+      "outbox_effect_delta": 0,
+      "trace": [
+        "Issue envelope bound to canonical approved text",
+        "Receive different text at execution",
+        "Reject action digest mismatch"
+      ],
+      "effect_kind": null
+    },
+    {
+      "id": "expired",
+      "label": "Reject an expired capability",
+      "expected": "capability_expired",
+      "actual": "capability_expired",
+      "passed": true,
+      "decision": "denied",
+      "outbox_effect_delta": 0,
+      "trace": [
+        "Advance injected test clock beyond expiry",
+        "Recheck freshness at execution",
+        "Deny without effect"
+      ],
+      "effect_kind": null
+    },
+    {
+      "id": "revoked",
+      "label": "Recheck revoked policy at execution",
+      "expected": "policy_revoked",
+      "actual": "policy_revoked",
+      "passed": true,
+      "decision": "denied",
+      "outbox_effect_delta": 0,
+      "trace": [
+        "Authorize under active policy",
+        "Operator revokes policy",
+        "Execution rechecks policy and stops"
+      ],
+      "effect_kind": null
+    }
+  ],
+  "passed": 10,
+  "total": 10,
+  "local_outbox_effects": 1,
+  "audit_event_count": 10,
+  "audit_contains_synthetic_canary": false,
+  "controls": [
+    "Task/tenant/resource scope",
+    "Destination account and operation binding",
+    "HMAC-bound action digest",
+    "Single-use nonce and transactional local outbox",
+    "Expiry and policy revocation",
+    "Gateway-owned source classification"
+  ],
+  "limits": [
+    "Trusted host identity and separate approver are fixtures, not a deployed authentication system",
+    "No live outbound delivery or network sandbox",
+    "No universal prompt-injection detection claim",
+    "Local policy scenarios are not a production security benchmark",
+    "In-process enforcement assumes trusted gateway and tool code"
+  ]
+}

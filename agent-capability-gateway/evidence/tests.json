@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "project": "Agent Capability Gateway",
+  "generated_at": "2026-10-23T00:58:30.625516+00:00",
+  "python_version": "3.12.14",
+  "platform": "Windows",
+  "sqlite_version": "3.53.1",
+  "tests_run": 36,
+  "passed": 36,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "successful": true,
+  "duration_seconds": 1.1915,
+  "failed_test_ids": [],
+  "source_sha256": {
+    "gateway.py": "471ce0866c0a693a228674ec0e9fcdc2ba0f3e16a80667c0ec6ef558c983fc33",
+    "fixtures.py": "3199ad6adeb8d8f15d296615ea836dfc013e702772996b420662c3876ddfd8aa",
+    "demo.py": "9dff570118ce80d9a99f60401bfa5fb552126d4c051cc74fee7e57e9bedbb3f0",
+    "test_gateway.py": "49b174be610a348d122e767c4a484bd1143e1af08d25c2276ac359ffcee1ddb0",
+    "verify.py": "0a0c72630ecafaaace5fd123b8b8a9be1d05ddac945ee8d39d21d82cfd3ece50"
+  },
+  "scope": "Local standard-library contract tests; fictional data; no model or network integration",
+  "unrun": [
+    "Real identity provider",
+    "Real outbound transport",
+    "Production load",
+    "Independent security certification"
+  ]
+}

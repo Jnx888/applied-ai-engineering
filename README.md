@@ -61,7 +61,7 @@ Recorded during October 22, 2026 in Mexico City (some UTC timestamps fall on Oct
 | [Object tests](object-evidence/evidence/tests.json) | 60 passed; 3 explicitly skipped on the Windows verification host | 63 discovered; optional LangChain, POSIX FIFO, and symlink availability are reported separately |
 | [Object evaluation](object-evidence/evidence/evaluation.json) | 8/8 retrieval cases and 7/7 synchronization/deletion checks | Handwritten, in-sample fictional documents |
 | [Object package check](object-evidence/evidence/package-smoke.json) | Packaged fixture resources and isolated demo/evaluation passed | Locally built wheel, not a published package |
-| [Staffing execution](staffing-agent/evidence/demo.json) | 18 tests passed, persisted restart and approval checks passed | Single-host SQLite reference; no external delivery |
+| [Staffing execution](staffing-agent/evidence/demo.json) | 20 tests passed, persisted restart and approval checks passed | Single-host SQLite reference; no external delivery |
 | [Staffing evaluation](staffing-agent/evidence/evaluation.json) | 8/8 scenarios; BM25 and lexical fusion both MRR 1.0 | Small synthetic set; no measured ranking uplift |
 | [Gateway tests](agent-capability-gateway/evidence/tests.json) | 36/36 passed; zero skipped on the Windows verification host | Tenant/account scope, payload mutation, expiry, revocation, concurrent replay, source relabeling and atomic rollback |
 | [Gateway execution](agent-capability-gateway/evidence/demo.json) | 10/10 scenarios; two permitted, eight denied, one local outbox effect | Real Python/SQLite policy execution with fictional identities and simulated egress; zero model/network calls |
